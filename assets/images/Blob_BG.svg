@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="182" height="72" viewBox="0 0 182 72">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="0.971" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f6dc79"/>
+      <stop offset="1" stop-color="#ff9e7b"/>
+    </linearGradient>
+  </defs>
+  <g id="Blob_BG" transform="translate(-147 -306)">
+    <circle id="Oval_Copy_4" data-name="Oval Copy 4" cx="2" cy="2" r="2" transform="translate(290 332)" fill="url(#linear-gradient)"/>
+    <circle id="Oval_Copy_7" data-name="Oval Copy 7" cx="4" cy="4" r="4" transform="translate(177 345)" fill="url(#linear-gradient)"/>
+    <circle id="Oval_Copy_5" data-name="Oval Copy 5" cx="3.5" cy="3.5" r="3.5" transform="translate(306 306)" fill="url(#linear-gradient)"/>
+    <circle id="Oval_Copy_8" data-name="Oval Copy 8" cx="2" cy="2" r="2" transform="translate(162 313)" fill="url(#linear-gradient)"/>
+    <circle id="Oval_Copy_6" data-name="Oval Copy 6" cx="5" cy="5" r="5" transform="translate(319 359)" fill="url(#linear-gradient)"/>
+    <circle id="Oval_Copy_9" data-name="Oval Copy 9" cx="3" cy="3" r="3" transform="translate(147 372)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

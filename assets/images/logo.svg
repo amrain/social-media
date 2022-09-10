@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="84.427" height="84.427" viewBox="0 0 84.427 84.427">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Mask" d="M0,68.607V15.82A15.82,15.82,0,0,1,15.82,0H68.607a15.82,15.82,0,0,1,15.82,15.82V68.607a15.82,15.82,0,0,1-15.82,15.82H15.82A15.82,15.82,0,0,1,0,68.607" transform="translate(0 0.083)" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="logo" transform="translate(0 -0.083)">
+    <path id="Mask-2" data-name="Mask" d="M0,68.607V15.82A15.82,15.82,0,0,1,15.82,0H68.607a15.82,15.82,0,0,1,15.82,15.82V68.607a15.82,15.82,0,0,1-15.82,15.82H15.82A15.82,15.82,0,0,1,0,68.607" transform="translate(0 0.083)" fill="#fff"/>
+    <g id="logo-2" data-name="logo" clip-path="url(#clip-path)">
+      <path id="Fill_3" data-name="Fill 3" d="M95.516,114.717,0,43.5,10.889,34S26.6,32.644,27.717,23c.354-3.055,2.756-13.6,1.98-18.433-.33-2.054-2.848.928-3.712-.567C22.464-2.093,17.818,15,29.7,0,51.107,19.7,98,63,98,63Z" transform="translate(27 23.5)" opacity="0.02"/>
+      <g id="hi-face-speech-bubble" transform="translate(21 18)">
+        <path id="Shape" d="M6.718,37.038A21.481,21.481,0,1,1,21.5,42.951a21.615,21.615,0,0,1-5.289-.681L6,49Z" fill="#ed547b"/>
+      </g>
+    </g>
+  </g>
+</svg>

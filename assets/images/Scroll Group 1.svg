@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="259" height="202" viewBox="0 0 259 202">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="176" width="259" height="202" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect y="176" width="259" height="200" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f679a3"/>
+      <stop offset="1" stop-color="#e9446a"/>
+    </linearGradient>
+  </defs>
+  <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(0 -176)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <g id="Scroll_Group_3" data-name="Scroll Group 3" clip-path="url(#clip-path-2)" style="isolation: isolate">
+      <circle id="Oval" cx="188" cy="188" r="188" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+</svg>
