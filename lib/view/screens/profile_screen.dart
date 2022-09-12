@@ -60,28 +60,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               SizedBox(
-                                                    height: 245.h,
-                                                    child: Align(
-                                                      alignment: Alignment.bottomCenter,
-                                                      child: ClipRRect(
-                                                          borderRadius: BorderRadius.circular(150),
-                                                          child: Image.network(provider3.appUser?.image??"https://raw.githubusercontent.com/flutter-devs/flutter_profileview_demo/master/assets/images/as.png",height: 136.h,width: 136.h,
-                                                            fit: BoxFit.cover,
-                                                            loadingBuilder: (contxt,child,loding){
-                                                              if(loding == null){
-                                                                return child;
-                                                              }else {
-                                                                return FadeShimmer.round(
-                                                                  size: 100.sp,
-                                                                  highlightColor: Color(0xffF9F9FB),
-                                                                  baseColor: Color(0xffE6E8EB),
-                                                                );
-                                                              }
-                                                            },
+                                height: 245.h,
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(150),
+                                      child: Image.network(provider3.appUser?.image??"https://raw.githubusercontent.com/flutter-devs/flutter_profileview_demo/master/assets/images/as.png",height: 136.h,width: 136.h,
+                                        fit: BoxFit.cover,
+                                        loadingBuilder: (contxt,child,loding){
+                                          if(loding == null){
+                                            return child;
+                                          }else {
+                                            return FadeShimmer.round(
+                                              size: 100.sp,
+                                              highlightColor: Color(0xffF9F9FB),
+                                              baseColor: Color(0xffE6E8EB),
+                                            );
+                                          }
+                                        },
 
-                                                          )),
-                                                    ),
-                                                  ),
+                                      )),
+                                ),
+                              ),
 
                             ],
                           ),

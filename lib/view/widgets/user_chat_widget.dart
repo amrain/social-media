@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:social_media/model/Firebase/appUser_Model.dart';
 import 'package:social_media/navigation/router.dart';
-import 'package:social_media/view/screens/chat_screen.dart';
 import 'package:social_media/view/screens/test.dart';
 import 'package:social_media/view/widgets/constans.dart';
+
+import '../screens/chat_screen1.dart';
 
 class UserChatWidget extends StatelessWidget {
    UserChatWidget(this.appUser) ;

@@ -14,9 +14,16 @@ class ChatHelper {
         : otherUserId + myId!;
     return collectionId;
   }
-
-
   sendMessage(ChatMessage message, String otherUserId) {
+    String collectionId = getChatId(otherUserId);
+    FirebaseFirestore.instance
+        .collection("chats")
+        .doc(collectionId)
+        .collection("messages")
+        .add(message.toMap());
+  }
+
+  sendImage(ChatMessage message, String otherUserId) {
     String collectionId = getChatId(otherUserId);
     FirebaseFirestore.instance
         .collection("chats")
@@ -35,20 +42,55 @@ class ChatHelper {
         .snapshots();
     return stream.map((event) {
       List<ChatMessage> messages = event.docs.map((e) {
-        return ChatMessage.fromeMap(e.data());
+        ChatMessage chatMessage = ChatMessage.fromeMap(e.data());
+        chatMessage.id = e.id;
+        return chatMessage;
+
+
       }).toList();
       return messages;
     });
   }
 
-  deletChat(String otherUserId){
+  getAllMessagejust(String otherUserId)async{
     String collectionId = getChatId(otherUserId);
-    FirebaseFirestore.instance
+    QuerySnapshot<Map<String, dynamic>> respons= await FirebaseFirestore.instance
         .collection("chats")
         .doc(collectionId)
         .collection("messages")
-        .doc("1lwwCk3iegCKzwgOuA1P")
+        .orderBy("time")
+        .get();
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> datas = respons.docs;
+
+    List<ChatMessage> messages = datas.map((e) {
+      return ChatMessage.fromeMap(e.data());
+    }).toList();
+    return messages;
+  }
+
+  deletMessage(String otherUserId,String idMesagge)async{
+    String collectionId = getChatId(otherUserId);
+   await FirebaseFirestore.instance
+        .collection("chats")
+        .doc(collectionId)
+        .collection("messages")
+        .doc(idMesagge)
         .delete();
   }
+
+  deletChate(String otherUserId)async{
+    String collectionId = getChatId(otherUserId);
+    await FirebaseFirestore.instance
+        .collection("chats")
+        .doc(collectionId)
+        .collection("messages").get().then((value) {
+      for (DocumentSnapshot ds in value.docs){
+        ds.reference.delete();
+      }
+    } );
+  }
+
+
+
 
 }

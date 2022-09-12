@@ -108,6 +108,14 @@ class PostProvider extends ChangeNotifier{
 
   }
 
+  updateImagePost(Owner owner)async{
+    await PostHelper.postHelper.updateImagePost(owner);
+    appUser!.image = owner.picture;
+    notifyListeners();
+  }
+
+
+
 
 
 

@@ -9,9 +9,11 @@ import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/data/auth_helper.dart';
+import 'package:social_media/data/post_helper.dart';
 import 'package:social_media/data/storge_helper.dart';
 import 'package:social_media/data/user_firestore_helper.dart';
 import 'package:social_media/model/Firebase/appUser_Model.dart';
+import 'package:social_media/model/post_model.dart';
 import 'package:social_media/navigation/router.dart';
 import 'package:social_media/provider/api_provider.dart';
 import 'package:social_media/provider/chat_provider.dart';
@@ -179,6 +181,9 @@ class AuthProvaider extends ChangeNotifier{
       _dialogLoader();
       appUser!.image = await uploadImage(selectedImage!);
       await UserFirestoreHelper.firestoreHelper.upDateImage(appUser!);
+      Owner owner = Owner(id: appUser!.id,firstName: appUser!.userName.split(" ")[0],lastName: appUser!.userName.split(" ")[1],picture: appUser!.image);
+      Provider.of<PostProvider>(AppRouter.navKey.currentContext!,listen: false).updateImagePost(owner);
+
       dialogLoader.close();
       notifyListeners();
     }

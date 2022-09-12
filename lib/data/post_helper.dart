@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:social_media/data/auth_helper.dart';
 import 'package:social_media/model/post_model.dart';
 
 class PostHelper{
@@ -24,12 +25,48 @@ class PostHelper{
       // log(e.data().toString());
       return dataPost;
     } ).toList();
-
+    // print(posts[0].toJson());
     return posts;
 
   }
    deletPost(String idPost){
     postCollection.doc(idPost).delete();
+  }
+
+  updateImagePost(Owner owner)async{
+    // postCollection
+    //     .where('answer', isEqualTo : 'value')
+    //   .then((value) => value.docs.forEach((doc) {
+    //     doc.reference.update({'answer': ''});
+    //   }));
+    // var collection = FirebaseFirestore.instance.collection('collection');
+    // QuerySnapshot<Map<String, dynamic>> querySnapshots = await postCollection.get();
+    // for (var doc in querySnapshots.docs) {
+    //   await doc.reference.update({
+    //     'single_field': 'newValue',
+    //   });
+    // }
+
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await postCollection.get();
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> documints = querySnapshot.docs;
+    List<DataPost> posts = documints.map((e) {
+
+      DataPost dataPost = DataPost.fromJson(e.data());
+      dataPost.id = e.id;
+      return dataPost;
+    } ).toList();
+    posts.removeWhere((element) => element.owner!.id != AuthHelper.authHelper.getCurrentUserId());
+    print(posts);
+    posts.forEach((element) {
+      postCollection.doc(element.id).update(
+        {
+          "owner":owner.toJson()
+        }
+      );
+    }
+    );
+
+
   }
 
 

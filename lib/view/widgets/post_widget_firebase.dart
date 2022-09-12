@@ -68,7 +68,12 @@ class _PostWidgetFirebaseState extends State<PostWidgetFirebase> {
                         }
 
                       },
-                      child: CircleAvatar(
+                      child: (widget.data.owner!.id == provider.appUser!.id)
+                          ?CircleAvatar(
+
+                        backgroundImage: NetworkImage(provider.appUser!.image!),
+                      )
+                          :CircleAvatar(
 
                       backgroundImage: NetworkImage(widget.data.owner!.picture??noImage),
                       ),

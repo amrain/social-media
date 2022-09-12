@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media/data/post_helper.dart';
 import 'package:social_media/navigation/router.dart';
 import 'package:social_media/provider/api_provider.dart';
 import 'package:social_media/provider/auth_provaider.dart';
@@ -27,18 +28,19 @@ class FeedScreen extends StatelessWidget {
         backgroundColor: MainColor,
         title: Text('Feeds'),
         centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(1),
-            child: IconButton(onPressed: (){
-
-            }, icon: InkWell(
-              onTap: (){
-                Diloge.show("v");
-              },
-                child: Icon(Icons.search)),),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.all(1),
+        //     child: IconButton(onPressed: (){
+        //
+        //     }, icon: InkWell(
+        //       onTap: (){
+        //         // Diloge.show("v");
+        //         PostHelper.postHelper.getAllPosts();
+        //       },
+        //         child: Icon(Icons.search)),),
+        //   ),
+        // ],
         leading: IconButton(onPressed: (){
           AppRouter.NavigateToWidget(InboxScreen());
         }, icon: Icon(Icons.forum))
