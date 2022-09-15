@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+![Fast Social](https://user-images.githubusercontent.com/108322649/190510352-2e8f62ed-202a-41e5-9acf-2a3f1b48a261.jpg)
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
