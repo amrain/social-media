@@ -76,13 +76,19 @@ class ChatProvider extends ChangeNotifier{
   File? selectedImage;
   Future<String> uploadImage()async{
     _dialogLoader();
+    if(selectedImage != null){
+      String url = await StorgeHelper.storgeHelper.uplodImage(selectedImage!);
+      image = url;
+      log(url);
+      dialogLoader.close();
 
-    String url = await StorgeHelper.storgeHelper.uplodImage(selectedImage!);
-    image = url;
-    log(url);
-    dialogLoader.close();
+      return url;
 
-    return url;
+    }else {
+      dialogLoader.close();
+      return "";
+    }
+
   }
   selecteImageFun()async {
     XFile? xfile = await ImagePicker().pickImage(source: ImageSource.gallery);
