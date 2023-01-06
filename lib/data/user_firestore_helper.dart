@@ -24,7 +24,7 @@ class UserFirestoreHelper{
     QuerySnapshot<Map<String, dynamic>> documentSnapshots = await firestoreinstance.get();
     List<AppUser> users = documentSnapshots.docs.map((e) =>
         AppUser.fromeMap(e.data())).toList();
-    users.removeWhere((element) => element.id == AuthHelper.authHelper.getCurrentUserId());
+    users.removeWhere((element) => ((element.id == AuthHelper.authHelper.getCurrentUserId())||( element.userName == "Noura A.amren")||( element.userName.contains("sumaiaahmed2"))));
     return users;
   }
   Future<List> getAllUserFromFirestore2()async{

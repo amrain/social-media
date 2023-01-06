@@ -211,17 +211,18 @@ class _ChatScreenState extends State<ChatScreen> {
                                               Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
-                                                  FlatButton(onPressed: ()async{
+                                                  ElevatedButton(onPressed: ()async{
                                                     Navigator.of(context).pop();
 
                                                     await provider.deletMessage(widget.otherUser.id!,list[index].id!);
 
-                                                  }, child: Text('Yes'),textColor: Colors.white,),
+                                                  }, child: Text('Yes',style: TextStyle(color:Colors.white ),)),
                                                   SizedBox(width: 8,),
-                                                  RaisedButton(onPressed: (){
+                                                  ElevatedButton(onPressed: (){
                                                     Navigator.of(context).pop();
 
-                                                  }, child: Text('No'), color: Colors.white, textColor: Colors.redAccent,)
+                                                  }, child: Text('No',style: TextStyle(color:Colors.white ),),
+                                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),)
                                                 ],
                                               )
                                               // RaisedButton(onPressed: (){

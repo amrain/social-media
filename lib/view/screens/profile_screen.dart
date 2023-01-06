@@ -836,7 +836,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void onSelected(BuildContext context,OneItem item){
     switch (item){
       case MenuItems.itemEdit: AppRouter.NavigateToWidget(EditScreen());break;
-      case MenuItems.itemlogOut: Provider.of<AuthProvaider>(context,listen: false).signOut();;break;
+      case MenuItems.itemlogOut: Provider.of<AuthProvaider>(context,listen: false).signOut();break;
 
     }
 

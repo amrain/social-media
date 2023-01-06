@@ -53,14 +53,16 @@ class CustomDialog extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            FlatButton(onPressed: (){
+            ElevatedButton(onPressed: (){
               Navigator.of(context).pop();
-            }, child: Text('No'),textColor: Colors.white,),
+            }, child: Text('No',style: TextStyle(color:Colors.white ),)),
             SizedBox(width: 8,),
-            RaisedButton(onPressed: (){
+            ElevatedButton(onPressed: (){
               SystemNavigator.pop();
 
-            }, child: Text('Yes'), color: Colors.white, textColor: Colors.redAccent,)
+            }, child: Text('Yes',style: TextStyle(color:Colors.redAccent ),),
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
+            )
           ],
         )
       // RaisedButton(onPressed: (){

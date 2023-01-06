@@ -33,7 +33,7 @@ class CommentModel {
 class DataComment {
   String? id;
   String? message;
-  Owner? owner;
+  OwnerComment? owner;
   String? post;
   String? publishDate;
 
@@ -42,7 +42,7 @@ class DataComment {
   DataComment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     message = json['message'];
-    owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
+    owner = json['owner'] != null ? new OwnerComment.fromJson(json['owner']) : null;
     post = json['post'];
     publishDate = json['publishDate'];
   }
@@ -60,16 +60,16 @@ class DataComment {
   }
 }
 
-class Owner {
+class OwnerComment {
   String? id;
   String? title;
   String? firstName;
   String? lastName;
   String? picture;
 
-  Owner({this.id, this.title, this.firstName, this.lastName, this.picture});
+  OwnerComment({this.id, this.title, this.firstName, this.lastName, this.picture});
 
-  Owner.fromJson(Map<String, dynamic> json) {
+  OwnerComment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     firstName = json['firstName'];

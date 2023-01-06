@@ -293,10 +293,9 @@ class _EditScreenState extends State<EditScreen> {
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
                   height: 45,
-                  child: new RaisedButton(
-                    child: new Text("Save"),
-                    textColor: Colors.white,
-                    color: Colors.green,
+                  child: new ElevatedButton(
+                    child: new Text("Save",style: TextStyle(color:Colors.white ),),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.green)),
                     onPressed: () {
                        Provider.of<AuthProvaider>(context,listen:  false).upDateUser();
                        AppRouter.popraoter();
@@ -306,8 +305,8 @@ class _EditScreenState extends State<EditScreen> {
                       //   FocusScope.of(context).requestFocus(new FocusNode());
                       // });
                     },
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(20.0)),
+                    // shape: new RoundedRectangleBorder(
+                    //     borderRadius: new BorderRadius.circular(20.0)),
                   )),
             ),
             flex: 2,
@@ -317,10 +316,9 @@ class _EditScreenState extends State<EditScreen> {
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
                   height: 45,
-                  child: new RaisedButton(
-                    child: new Text("Cancel"),
-                    textColor: Colors.white,
-                    color: Colors.red,
+                  child: new ElevatedButton(
+                    child: new Text("Cancel",style: TextStyle(color:Colors.white, ),),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
                     onPressed: () {
                       Provider.of<AuthProvaider>(context,listen:  false).userNameController.clear();
                       Provider.of<AuthProvaider>(context,listen:  false).phoneController.clear();
@@ -329,9 +327,10 @@ class _EditScreenState extends State<EditScreen> {
 
 
                     },
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(20.0)),
-                  )),
+                    // shape: new RoundedRectangleBorder(
+                    //     borderRadius: new BorderRadius.circular(20.0)),
+                  )
+              ),
             ),
             flex: 2,
           ),

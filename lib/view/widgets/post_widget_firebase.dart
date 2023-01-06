@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media/data/post_helper.dart';
 import 'package:social_media/model/post_model.dart';
 import 'package:social_media/navigation/router.dart';
 import 'package:social_media/provider/api_provider.dart';
@@ -150,7 +152,7 @@ class _PostWidgetFirebaseState extends State<PostWidgetFirebase> {
                         SizedBox(height: 12.h,),
 
                         InkWell(onTap: (){
-                          // provider.getCommentofPost(widget.data.id!);
+                           provider.getCommentOfPost(widget.data);
                           AppRouter.NavigateToWidget(PostScreen(widget.data));
                         },child: Column(
                           children: [
@@ -215,27 +217,95 @@ class _PostWidgetFirebaseState extends State<PostWidgetFirebase> {
                           width: 270.w,
                           child: Row(
                             children: [
-                              GestureDetector(onTap: (){
-                                isLike =! isLike;
-                                if(isLike)(liks = liks! + 1);else(liks = liks! - 1) ;
-                                setState(() {
+                              StreamBuilder<DocumentSnapshot>(
+                                stream: PostHelper.postHelper.getAllLiks(widget.data),
+                                  builder: (contxt,snapshots){
+                                   if(!snapshots.hasData){
+                                     return IconButton(onPressed:(){} , icon: Icon(Icons.favorite,color: Colors.grey.shade600,));
+                                   }
+                                   if(snapshots.data!.exists){
+                                     return IconButton(onPressed: (){
+                                       PostHelper.postHelper.addLike(true, widget.data);
+                                     }, icon: Icon(Icons.favorite,color: Colors.red,));
+                                   }else  return IconButton(onPressed: (){
+                                     PostHelper.postHelper.addLike(false, widget.data);
 
-                                });
-                              },
-                                  child: Icon(Icons.favorite,color: (isLike)?Colors.red:Colors.grey.shade600,)),
+                                   }, icon: Icon(Icons.favorite,color: Colors.grey.shade600,));
+
+                              }),
+                              // GestureDetector(onTap: (){
+                              //   isLike =! isLike;
+                              //   if(isLike)(liks = liks! + 1);else(liks = liks! - 1) ;
+                              //   setState(() {
+                              //
+                              //   });
+                              // },
+                              //     child: Icon(Icons.favorite,color: (isLike)?Colors.red:Colors.grey.shade600,)),
                               SizedBox(width: 15.w,),
-                              SvgPicture.asset("assets/images/003-comment-1.svg"),
+                              InkWell(onTap: (){
+                                provider.getCommentOfPost(widget.data);
+                                AppRouter.NavigateToWidget(PostScreen(widget.data));
+                              },child: SvgPicture.asset("assets/images/003-comment-1.svg")),
                               Spacer(),
-                              Text(
-                                liks.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat-Medium',
-                                  fontSize: 15,
-                                  color: const Color(0xff161f3d),
-                                ),
-                                textAlign: TextAlign.right,
-                                softWrap: false,
-                              )
+                              StreamBuilder<QuerySnapshot>(
+                              stream: PostHelper.postHelper.getAllLiksforeNum(widget.data),
+                              builder: (contxt,snapshots){
+                                if(snapshots.hasData){
+                                  return  (snapshots.data!.docs.length==0)
+                                      ?Text(
+                                    "",
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat-Medium',
+                                      fontSize: 15,
+                                      color: const Color(0xff161f3d),
+                                    ),
+                                    textAlign: TextAlign.right,
+                                    softWrap: false,
+                                  )
+                                      :Text(
+                                    snapshots.data!.docs.length.toString(),
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat-Medium',
+                                      fontSize: 15,
+                                      color: const Color(0xff161f3d),
+                                    ),
+                                    textAlign: TextAlign.right,
+                                    softWrap: false,
+                                  );
+                                  //   (snapshots.data!.docs.length==0)
+                                  //       ?snapshots.data!.docs.length.toString()
+                                  //   !Text(
+                                  //   snapshots.data!.docs.length.toString(),
+                                  //   style: TextStyle(
+                                  //     fontFamily: 'Montserrat-Medium',
+                                  //     fontSize: 15,
+                                  //     color: const Color(0xff161f3d),
+                                  //   ),
+                                  //   textAlign: TextAlign.right,
+                                  //   softWrap: false,
+                                  // );
+                                }
+                                else return Text(
+                                  "",
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat-Medium',
+                                    fontSize: 15,
+                                    color: const Color(0xff161f3d),
+                                  ),
+                                  textAlign: TextAlign.right,
+                                  softWrap: false,
+                                );
+                              })
+                              // Text(
+                              //   liks.toString(),
+                              //   style: TextStyle(
+                              //     fontFamily: 'Montserrat-Medium',
+                              //     fontSize: 15,
+                              //     color: const Color(0xff161f3d),
+                              //   ),
+                              //   textAlign: TextAlign.right,
+                              //   softWrap: false,
+                              // )
                             ],
                           ),
                         )

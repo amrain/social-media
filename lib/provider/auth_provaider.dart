@@ -22,6 +22,8 @@ import 'package:social_media/view/screens/feed_screen.dart';
 import 'package:social_media/view/screens/login_screen.dart';
 import 'package:social_media/view/screens/nav_bar.dart';
 import 'package:social_media/view/widgets/custom_dialog.dart';
+import 'package:social_media/view/screens/inbox_screen.dart';
+
 
 import 'package:string_validator/string_validator.dart';
 
@@ -95,7 +97,7 @@ class AuthProvaider extends ChangeNotifier{
         dialogLoader.close();
 
 
-        AppRouter.NavigateWithReplacemtnToWidget(NavBar());
+        AppRouter.NavigateWithReplacemtnToWidget(InboxScreen());
       passwordController.clear();
 
       }
@@ -104,10 +106,6 @@ class AuthProvaider extends ChangeNotifier{
     // notifyListeners();
 
   }
-
-
-
-
 
   register()async{
     // isLoad = true;
@@ -127,8 +125,7 @@ class AuthProvaider extends ChangeNotifier{
       await Provider.of<ChatProvider>(AppRouter.navKey.currentContext!,listen: false).getAllUsers();
       dialogLoader.close();
 
-      Navigator.of(AppRouter.navKey.currentContext!).
-      pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>NavBar()), (route) => false);
+      AppRouter.NavigateWithReplacemtnToWidget(InboxScreen());
 
       passwordController.clear();
       cityController.clear();
@@ -147,7 +144,7 @@ class AuthProvaider extends ChangeNotifier{
        appUser = await UserFirestoreHelper.firestoreHelper.getUserFromFirestore(user.uid);
        Provider.of<PostProvider>(AppRouter.navKey.currentContext!,listen: false).appUser = appUser;
 
-       AppRouter.NavigateWithReplacemtnToWidget(NavBar());
+       AppRouter.NavigateWithReplacemtnToWidget(InboxScreen());
      }
   }
   signOut(){

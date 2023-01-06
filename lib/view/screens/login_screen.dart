@@ -69,9 +69,8 @@ class LoginScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 30.h,),
 
-                        Padding(
-
-                          padding:  EdgeInsets.only(left: 20,right: 20),
+                        Container(
+                          margin:  EdgeInsets.only(left: 20,right: 20),
                           child: TextFormField(
                             controller: provider.emailController,
                             validator: (x) => provider.emailvaliation(x!),
@@ -118,16 +117,17 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 20.h,),
-                        Padding(
-
-
-                          padding:  EdgeInsets.only(left: 20,right: 20),
+                        Container(
+                          margin:  EdgeInsets.only(left: 20,right: 20),
+                          // height: 60.h,
                           child: TextFormField(
+
                             controller: provider.passwordController,
                             validator: (x) => provider.passwrdvaliation(x!),
                             obscureText: true,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
+
                                 contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
 
                                 labelText: 'Password',
@@ -190,7 +190,7 @@ class LoginScreen extends StatelessWidget {
                         InkWell(
                           onTap: ()async{
                             await provider.signIn();
-                            await Provider.of<PostProvider>(AppRouter.navKey.currentContext!,listen: false).getAllPosts();
+                            // await Provider.of<PostProvider>(AppRouter.navKey.currentContext!,listen: false).getAllPosts();
                             // AppRouter.NavigateWithReplacemtnToWidget(FeedScreen());
                           },
                           child: Container(

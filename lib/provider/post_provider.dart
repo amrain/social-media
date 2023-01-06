@@ -7,9 +7,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media/data/auth_helper.dart';
 import 'package:social_media/data/post_helper.dart';
 import 'package:social_media/data/storge_helper.dart';
 import 'package:social_media/model/Firebase/appUser_Model.dart';
+import 'package:social_media/model/Firebase/chat_message.dart';
+import 'package:social_media/model/comment_model.dart';
 import 'package:social_media/model/post_model.dart';
 import 'package:social_media/navigation/router.dart';
 import 'package:social_media/provider/api_provider.dart';
@@ -30,13 +33,15 @@ class PostProvider extends ChangeNotifier{
   }
 
   GlobalKey<FormState> postdKey = GlobalKey();
+  GlobalKey<FormState> commentKey = GlobalKey();
+
 
   File? selectedImage;
   TextEditingController postDescriptionController = TextEditingController();
+  TextEditingController commentController = TextEditingController();
   List<DataPost> postsUser = [];
   List<DataPost> allPosts = [];
-
-
+  List<DataComment>? comments;
   String? publishDate;
   Owner? owner;
   AppUser? appUser;
@@ -113,6 +118,50 @@ class PostProvider extends ChangeNotifier{
     appUser!.image = owner.picture;
     notifyListeners();
   }
+
+  addNewComment(DataPost dataPost,)async{
+    if(commentKey.currentState!.validate()){
+      _dialogLoader();
+      DataComment dataComment = DataComment(
+        message: commentController.text,
+        owner: OwnerComment(
+          id: appUser!.id,
+          picture: appUser!.image,
+          firstName: appUser!.userName.split(" ")[0],
+          lastName:  appUser!.userName.split(" ")[1],
+
+        ),
+        post: dataPost.id,
+        publishDate: DateTime.now().toString()
+      );
+
+      DataComment comment = await PostHelper.postHelper.addComment(dataComment);
+      comments?.add(comment);
+      commentController.clear();
+      dialogLoader.close();
+      notifyListeners();
+    }
+
+
+  }
+
+   getCommentOfPost(DataPost dataPost)async{
+     comments = null;
+    comments = await PostHelper.postHelper.getCommentOfPost(dataPost);
+    notifyListeners();
+  }
+
+
+// addLike(bool like){
+  //   like = !like;
+  //   if(like){
+  //
+  //   }else{
+  //
+  //   }
+  //
+  // }
+
 
 
 

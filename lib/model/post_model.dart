@@ -106,6 +106,9 @@ class Owner {
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
     data['picture'] = this.picture;
+    data['picture'] = this.picture;
+    data['creatDate'] = DateTime.now();
+
     return data;
   }
 }

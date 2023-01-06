@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:social_media/data/auth_helper.dart';
+import 'package:social_media/model/comment_model.dart';
 import 'package:social_media/model/post_model.dart';
 
 class PostHelper{
@@ -68,6 +69,77 @@ class PostHelper{
 
 
   }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getAllLiks(DataPost dataPost) {
+    String? myId = AuthHelper.authHelper.getCurrentUserId();
+
+    Stream<DocumentSnapshot<Map<String, dynamic>>> stream = FirebaseFirestore.instance
+        .collection("posts")
+        .doc(dataPost.id)
+        .collection("liks")
+        .doc(myId)
+        .snapshots();
+    return stream;
+  }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllLiksforeNum(DataPost dataPost) {
+    String? myId = AuthHelper.authHelper.getCurrentUserId();
+
+    Stream<QuerySnapshot<Map<String, dynamic>>> stream = FirebaseFirestore.instance
+        .collection("posts")
+        .doc(dataPost.id)
+        .collection("liks")
+        .snapshots();
+    return stream;
+  }
+
+  addLike(bool like,DataPost dataPost){
+    String? myId = AuthHelper.authHelper.getCurrentUserId();
+    like = !like;
+    if(like){
+      FirebaseFirestore.instance
+          .collection("posts")
+          .doc(dataPost.id)
+          .collection("liks")
+          .doc(myId).set(
+        dataPost.owner!.toJson()
+      );
+
+    }else{
+      FirebaseFirestore.instance
+          .collection("posts")
+          .doc(dataPost.id)
+          .collection("liks")
+          .doc(myId).delete();
+
+
+    }
+
+  }
+
+  Future<DataComment> addComment(DataComment dataComment)async{
+    DocumentReference<Map<String, dynamic>> referense = await FirebaseFirestore.instance
+        .collection("posts")
+        .doc(dataComment.post)
+        .collection("comments")
+        .add(dataComment.toJson());
+    dataComment.id = referense.id;
+    return dataComment;
+  }
+  Future<List<DataComment>> getCommentOfPost(DataPost dataPost)async{
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance.collection("posts").doc(dataPost.id).collection("comments").get();
+
+    List<DataComment > comments = querySnapshot.docs.map((e) {
+      DataComment dataComment = DataComment.fromJson(e.data());
+      dataComment.id = e.id;
+      return dataComment;
+    }).toList();
+    return comments;
+  }
+
+
+
+
+
 
 
 // Future<DataPost> addNewPost(DataPost dataPost)async{

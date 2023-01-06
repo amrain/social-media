@@ -23,6 +23,11 @@ class InboxScreen extends StatelessWidget {
         ),
         backgroundColor: MainColor,
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: (){
+            Provider.of<AuthProvaider>(context,listen: false).signOut();
+          }, icon: Icon(Icons.logout))
+        ],
       ),
       body:Consumer<ChatProvider>(
         builder: (context,provider,x) {

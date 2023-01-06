@@ -14,9 +14,8 @@ class SplachScreen extends StatelessWidget {
 
   navigationFun()async{
      await Future.delayed(Duration(seconds: 3));
-      // Provider.of<PostProvider>(AppRouter.navKey.currentContext!,listen: false).getAllPosts();
-      await Provider.of<AuthProvaider>(AppRouter.navKey.currentContext!,listen: false).checUser();
-      await Provider.of<ChatProvider>(AppRouter.navKey.currentContext!,listen: false).getAllUsers();
+     await Provider.of<AuthProvaider>(AppRouter.navKey.currentContext!,listen: false).checUser();
+     await Provider.of<ChatProvider>(AppRouter.navKey.currentContext!,listen: false).getAllUsers();
 
 
 
