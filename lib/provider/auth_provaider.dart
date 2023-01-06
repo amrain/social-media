@@ -148,6 +148,7 @@ class AuthProvaider extends ChangeNotifier{
      }
   }
   signOut(){
+
     // loginKey = GlobalKey();
      AuthHelper.authHelper.signOut();
      AppRouter.NavigateWithReplacemtnToWidget(LoginScreen());
