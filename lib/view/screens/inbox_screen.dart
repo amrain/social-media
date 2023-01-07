@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media/navigation/router.dart';
 import 'package:social_media/provider/auth_provaider.dart';
 import 'package:social_media/provider/chat_provider.dart';
+import 'package:social_media/view/screens/ViewCodeScreen.dart';
 import 'package:social_media/view/widgets/constans.dart';
 import 'package:social_media/view/widgets/user_chat_widget.dart';
 
@@ -21,6 +23,7 @@ class InboxScreen extends StatelessWidget {
             fontSize: 20.sp,
           ),
         ),
+
         backgroundColor: MainColor,
         centerTitle: true,
         actions: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-Color MainColor = Color(0xffE9446A);
+Color MainColor = Color(0xff8a114e);
 
 String urlApi = "https://dummyapi.io/data/v1/";
 String appID = "630df27f96cf7c36a5192125";

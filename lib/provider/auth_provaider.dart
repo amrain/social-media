@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dialog_loader/dialog_loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/data/auth_helper.dart';
@@ -26,6 +28,7 @@ import 'package:social_media/view/screens/inbox_screen.dart';
 
 
 import 'package:string_validator/string_validator.dart';
+
 
 
 class AuthProvaider extends ChangeNotifier{
@@ -79,11 +82,6 @@ class AuthProvaider extends ChangeNotifier{
     );
   }
   signIn()async{
-    // isLoad = true;
-    //
-    //
-    // notifyListeners();
-
     if(loginKey!.currentState!.validate()){
       _dialogLoader();
 
@@ -95,7 +93,13 @@ class AuthProvaider extends ChangeNotifier{
         await Provider.of<ApiProvider>(AppRouter.navKey.currentContext!,listen: false).getPosts();
         await Provider.of<ChatProvider>(AppRouter.navKey.currentContext!,listen: false).getAllUsers();
         dialogLoader.close();
+        AnimatedSnackBar.material(
+          'Login success',
+          type: AnimatedSnackBarType.success,
+          duration:  Duration(seconds: 1),
+          mobileSnackBarPosition: MobileSnackBarPosition.bottom,
 
+        ).show(AppRouter.navKey.currentContext!);
 
         AppRouter.NavigateWithReplacemtnToWidget(InboxScreen());
       passwordController.clear();

@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:dart_3des/dart_3des.dart';
 import 'package:dialog_loader/dialog_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,15 @@ import 'package:social_media/model/Firebase/chat_message.dart';
 import 'package:social_media/navigation/router.dart';
 
 class ChatProvider extends ChangeNotifier{
+  bool showPlanText = false;
+
+  showPlan(){
+    showPlanText = !showPlanText;
+    notifyListeners();
+  }
+
+  String key = "cipher";
+  var blockCipher = BlockCipher(new DESEngine(), "cipher");
 
   TextEditingController messagecontroller = TextEditingController();
   List<ChatMessage> messages = [];
@@ -31,7 +42,7 @@ class ChatProvider extends ChangeNotifier{
   }
 
   sendMessage(String otherUserId)async{
-    String contant = messagecontroller.text;
+    String contant = blockCipher.encodeB64(messagecontroller.text);
     if(contant.isNotEmpty){
       ChatMessage message = ChatMessage(
           content: contant,
@@ -40,8 +51,17 @@ class ChatProvider extends ChangeNotifier{
 
       );
         ChatHelper.chatHelper.sendMessage(message, otherUserId);
+      AnimatedSnackBar.rectangle(
+        'Send Massage',
+        'Plan Text :\n${(messagecontroller.text)} \n\nCipher Text :\n$contant',
+        type: AnimatedSnackBarType.success,
+        brightness: Brightness.light,
+      ).show(
+        AppRouter.navKey.currentContext!,
+      );
       messagecontroller.clear();
     }
+
   }
 
   sendImage(String otherUserId)async{

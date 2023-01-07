@@ -53,7 +53,9 @@ dependencies:
   dialog_loader: ^0.0.3+3
   simple_fontellico_progress_dialog: ^0.2.1
   flutter_chat_list: ^1.0.6
-
+  dart_3des: ^1.0.1
+  animated_snack_bar: ^0.3.0
+  flutter_syntax_view: ^4.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

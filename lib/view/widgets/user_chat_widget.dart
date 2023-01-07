@@ -22,14 +22,22 @@ class UserChatWidget extends StatelessWidget {
           },
           child: Container(
             color: Color(0xffFBFCFE),
-            padding: EdgeInsets.symmetric(vertical:12,horizontal: 17 ),
-
+            padding: EdgeInsets.symmetric(vertical:12, horizontal: 17 ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 27.5.sp,
-                  backgroundImage: NetworkImage(appUser.image??"https://raw.githubusercontent.com/flutter-devs/flutter_profileview_demo/master/assets/images/as.png"),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 23.r,
+                      backgroundColor: MainColor,
+                    ),
+                    CircleAvatar(
+                      radius: 22.r,
+                      backgroundImage: NetworkImage(appUser.image??"https://raw.githubusercontent.com/flutter-devs/flutter_profileview_demo/master/assets/images/as.png"),
+                    ),
+                  ],
                 ),
                 SizedBox(width: 10.w,),
                 Text(
@@ -37,7 +45,7 @@ class UserChatWidget extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Montserrat-Medium',
                     fontSize: 15.sp,
-                    color: const Color(0xffe9446a),
+                    color: MainColor,
                   ),
                   softWrap: false,
                 )
@@ -48,11 +56,12 @@ class UserChatWidget extends StatelessWidget {
         ),
         Divider(
           color: MainColor,
-          height: 5,
+          height: .02,
           thickness: .5,
           indent: 15,
           endIndent: 15,
-        )
+        ),
+        SizedBox(height: 10.h,)
       ],
     );
   }

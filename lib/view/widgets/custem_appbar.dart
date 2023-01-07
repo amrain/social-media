@@ -16,11 +16,11 @@ class CustemAppBar extends StatelessWidget {
           decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-            Color(0xffF0648D),
-            Color(0xffEF6089),
-            Color(0xffEF5F88),
-            Color(0xffEE5E86),
-            Color(0xffE9446A),
+            Color(0xff0f2641),
+            Color(0xff193d69),
+            Color(0xff2b455e),
+            Color(0xff193d69),
+            Color(0xff09335b),
 
             ]
           )

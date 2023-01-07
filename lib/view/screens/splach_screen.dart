@@ -8,6 +8,7 @@ import 'package:social_media/provider/auth_provaider.dart';
 import 'package:social_media/provider/chat_provider.dart';
 import 'package:social_media/provider/post_provider.dart';
 import 'package:social_media/view/screens/login_screen.dart';
+import 'package:social_media/view/widgets/constans.dart';
 
 class SplachScreen extends StatelessWidget {
   const SplachScreen({Key? key}) : super(key: key);
@@ -25,20 +26,17 @@ class SplachScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     navigationFun();
     return Scaffold(
-      backgroundColor: Color(0xffE9446A),
+      // backgroundColor: Color(0xffE9446A),
       body: Center(
         child:Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset("assets/images/logo.svg",
-              height: 180.h,
-
-            ),
+            Image.asset('assets/images/data-encryption.png',height: 180.h,),
             SizedBox(height: 15.h,),
-            Text("Fast Social",style: TextStyle(
+            Text("Encryption Chat",style: TextStyle(
               fontFamily: 'Montserrat-Regular',
-              fontSize: 35.sp,
-              color: const Color(0xffffffff),
+              fontSize: 25.sp,
+              color: MainColor,
               height: 1.5,
             ),),
           ],

@@ -53,395 +53,297 @@ class _ChatScreenState extends State<ChatScreen> {
         return Scaffold(
           backgroundColor: Color(0xffFBFCFE),
           body: SafeArea(
-            child: Stack(
-              alignment: Alignment.center,
+            child: Column(
               children: [
-                 Container(
-                   // color: MainColor.withOpacity(.1),
-                   color: Colors.white,
-                     height: MediaQuery.of(context).size.height,
-                     width: MediaQuery.of(context).size.width,
-                      ),
-                 SvgPicture.asset("assets/images/logo.svg",height: 130.h,),
+                Container(
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 2,
+                      blurStyle: BlurStyle.inner,
+                      offset: Offset(-1,.5)
+                      )
+                    ],
+                    color: Colors.white,
 
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal:19,vertical: 10 ),
+                  child: Row(
+                    children: [
 
-                Column(
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 2,
-                          blurStyle: BlurStyle.inner,
-                          offset: Offset(-1,.5)
-                          )
-                        ],
-                        color: Colors.white,
-
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal:19,vertical: 10 ),
-                      child: Row(
+                      InkWell(
+                        onTap: (){
+                          AppRouter.popraoter();
+                        },
+                          child: Icon(Icons.arrow_back_ios,color: MainColor,)),
+                      SizedBox(width: 10.w,),
+                      Stack(
+                        alignment: Alignment.center,
                         children: [
-
-                          InkWell(
-                            onTap: (){
-                              AppRouter.popraoter();
-                            },
-                              child: Icon(Icons.arrow_back_ios,color: MainColor,)),
-                          SizedBox(width: 10.w,),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 23.r,
-                                backgroundColor: MainColor,
-                              ),
-                              CircleAvatar(
-                                radius: 22.r,
-                                backgroundImage: NetworkImage(widget.otherUser.image??"https://raw.githubusercontent.com/flutter-devs/flutter_profileview_demo/master/assets/images/as.png"),
-                              ),
-                            ],
+                          CircleAvatar(
+                            radius: 23.r,
+                            backgroundColor: MainColor,
                           ),
-                          SizedBox(width: 10.w,),
-                          Text.rich(
+                          CircleAvatar(
+                            radius: 22.r,
+                            backgroundImage: NetworkImage(widget.otherUser.image??"https://raw.githubusercontent.com/flutter-devs/flutter_profileview_demo/master/assets/images/as.png"),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 10.w,),
+                      Text.rich(
+                        TextSpan(
+                          children:[
                             TextSpan(
-                              children:[
-                                TextSpan(
-                                  text:widget.otherUser.userName+"\n",
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat-Medium',
-                                    fontSize: 16.sp,
-                                    color: const Color(0xcc161f3d),
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:"online",
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat-Regular',
-                                    fontSize: 12.sp,
-                                    color: Colors.green,
-                                  )
-                                )
-                              ]
-                            )
-                          ),
-                          const Spacer(),
-                          // InkWell(
-                          //   onTap: (){
-                          //     provider.deletMessage(widget.otherUser.id??"");
-                          //   },
-                          //     child: Icon(Icons.more_vert,color: MainColor,size: 25.sp,))
-
-                          Container(
-                              child: PopupMenuButton<OneItem>(
-                                padding:const EdgeInsets.all(1),
-                                icon: Icon(Icons.more_vert,color: MainColor,),
-                                onSelected: (item) => onSelected(context,item),
-                                itemBuilder: (contxt){
-                                  return [
-                                    ...MenuItems.firstItems.map(buildItem).toList(),
-                                    // PopupMenuDivider(),
-                                    // ...MenuItems.SecundItems.map(buildItem).toList()
-
-                                  ];
-                                },
-
-                              )
-                          )
-
-                        ],
-                      ),
-
-                    ),
-                    Expanded(
-                        child:StreamBuilder<List<ChatMessage>>(
-                          stream: ChatHelper.chatHelper.getAllMessage(widget.otherUser.id!),
-                          builder: (contxt,snapshot) {
-                            List<ChatMessage>? list = snapshot.data?.reversed.toList();
-                            return ListView.builder(
-                              reverse: true,
-                              controller: scrollController,
-                                itemCount: list?.length??0,
-                                itemBuilder: (context, index) {
-                              return list![index].isFromMe
-                                  ?ChatBubble(
-                                clipper:   ChatBubbleClipper5(type: BubbleType.sendBubble),
-                                alignment: Alignment.topRight,
-                                margin: EdgeInsets.only(right: 6,bottom: 5,top: 1),
-                                backGroundColor: MainColor,
-                                child: InkWell(
-                                  onLongPress: (){
-                                    showDialog(context: context, builder: (context){
-                                      return Dialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(16)
-                                        ),
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
-                                        child: Container(
-                                          height: 180,
-                                          decoration: BoxDecoration(
-                                              color: MainColor,
-                                              shape: BoxShape.rectangle,
-                                              borderRadius: BorderRadius.all(Radius.circular(12))
-                                          ),
-                                          child: Column(
-                                            children: <Widget>[
-                                              // Container(
-                                              //   child: Padding(
-                                              //     padding: const EdgeInsets.all(12.0),
-                                              //     child: Image.asset('assets/images/sad.png', height: 120, width: 120,),
-                                              //   ),
-                                              //   width: double.infinity,
-                                              //   decoration: BoxDecoration(
-                                              //       color: Colors.white,
-                                              //       shape: BoxShape.rectangle,
-                                              //       borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12))
-                                              //   ),
-                                              // ),
-                                              SizedBox(height: 24,),
-                                              // Text(v, style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),),
-                                              SizedBox(height: 8,),
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 16, left: 16),
-                                                child: Text("Do you want to delete the message?", style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                                              ),
-                                              SizedBox(height: 35,),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  ElevatedButton(onPressed: ()async{
-                                                    Navigator.of(context).pop();
-
-                                                    await provider.deletMessage(widget.otherUser.id!,list[index].id!);
-
-                                                  }, child: Text('Yes',style: TextStyle(color:Colors.white ),)),
-                                                  SizedBox(width: 8,),
-                                                  ElevatedButton(onPressed: (){
-                                                    Navigator.of(context).pop();
-
-                                                  }, child: Text('No',style: TextStyle(color:Colors.white ),),
-                                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),)
-                                                ],
-                                              )
-                                              // RaisedButton(onPressed: (){
-                                              //   AppRouter.popraoter();
-                                              // }, child: Text('back'), color: Colors.white, textColor: Colors.redAccent,)
-
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    });
-                                    // provider.deletMessage(widget.otherUser.id!,list[index].id!);
-                                    print("iug");
-                                  },
-                                  child:(list[index].content == null)
-                                      ? Container(
-                                    constraints: BoxConstraints(
-                                      maxWidth: MediaQuery.of(context).size.width * 0.7,
-                                    ),
-                                    child: Image.network(list[index].imageurl!)
-                                  )
-                                      :Container(
-                                    constraints: BoxConstraints(
-                                      maxWidth: MediaQuery.of(context).size.width * 0.7,
-                                    ),
-                                    child: Text(
-                                      list[index].content??"",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              )
-                                  :ChatBubble(
-                                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-                                alignment: Alignment.topLeft,
-                                margin: EdgeInsets.only(left: 6,bottom: 5,top: 1),
-                                backGroundColor: Colors.grey.shade100,
-                                child: InkWell(
-                                  // onLongPress: (){
-                                  //   showDialog(context: context, builder: (context){
-                                  //     return Dialog(
-                                  //       shape: RoundedRectangleBorder(
-                                  //           borderRadius: BorderRadius.circular(16)
-                                  //       ),
-                                  //       elevation: 0,
-                                  //       backgroundColor: Colors.transparent,
-                                  //       child: Container(
-                                  //         height: 180,
-                                  //         decoration: BoxDecoration(
-                                  //             color: MainColor,
-                                  //             shape: BoxShape.rectangle,
-                                  //             borderRadius: BorderRadius.all(Radius.circular(12))
-                                  //         ),
-                                  //         child: Column(
-                                  //           children: <Widget>[
-                                  //             // Container(
-                                  //             //   child: Padding(
-                                  //             //     padding: const EdgeInsets.all(12.0),
-                                  //             //     child: Image.asset('assets/images/sad.png', height: 120, width: 120,),
-                                  //             //   ),
-                                  //             //   width: double.infinity,
-                                  //             //   decoration: BoxDecoration(
-                                  //             //       color: Colors.white,
-                                  //             //       shape: BoxShape.rectangle,
-                                  //             //       borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12))
-                                  //             //   ),
-                                  //             // ),
-                                  //             SizedBox(height: 24,),
-                                  //             // Text(v, style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),),
-                                  //             SizedBox(height: 8,),
-                                  //             Padding(
-                                  //               padding: const EdgeInsets.only(right: 16, left: 16),
-                                  //               child: Text("Do you want to delete the message?", style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                                  //             ),
-                                  //             SizedBox(height: 35,),
-                                  //             Row(
-                                  //               mainAxisSize: MainAxisSize.min,
-                                  //               children: <Widget>[
-                                  //                 FlatButton(onPressed: ()async{
-                                  //                   Navigator.of(context).pop();
-                                  //
-                                  //                   await provider.deletMessage(widget.otherUser.id!,list[index].id!);
-                                  //
-                                  //                 }, child: Text('Yes'),textColor: Colors.white,),
-                                  //                 SizedBox(width: 8,),
-                                  //                 RaisedButton(onPressed: (){
-                                  //                   Navigator.of(context).pop();
-                                  //
-                                  //                   }, child: Text('No'), color: Colors.white, textColor: Colors.redAccent,)
-                                  //               ],
-                                  //             )
-                                  //             // RaisedButton(onPressed: (){
-                                  //             //   AppRouter.popraoter();
-                                  //             // }, child: Text('back'), color: Colors.white, textColor: Colors.redAccent,)
-                                  //
-                                  //           ],
-                                  //         ),
-                                  //       ),
-                                  //     );
-                                  //   });
-                                  //   // provider.deletMessage(widget.otherUser.id!,list[index].id!);
-                                  //   print("iug");
-                                  // },
-                                  child: (list[index].content == null)
-                                      ? Container(
-                                      constraints: BoxConstraints(
-                                        maxWidth: MediaQuery.of(context).size.width * 0.7,
-                                      ),
-                                      child: Image.network(list[index].imageurl!)
-                                  )
-                                      :Container(
-                                    constraints: BoxConstraints(
-                                      maxWidth: MediaQuery.of(context).size.width * 0.7,
-                                    ),
-                                    child: Text(
-                                      list[index].content??"",
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                              );
-
-                            });
-                          },
-                        )
-                    ),
-                    // const SizedBox(height: 5,),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                      // height: 70.h ,
-                      color:  Colors.white,
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: ()async{
-                             await provider.selecteImageFun();
-                              await provider.uploadImage();
-                             await  provider.sendImage(widget.otherUser.id!);
-                            },
-
-                              child: Icon(Icons.add,color: MainColor ,size: 32,)),
-                          SizedBox(width: 5,),
-                          Expanded(
-
-                            child: ValueListenableBuilder<TextDirection>(
-                              valueListenable: _textDir,
-                              builder: (context, value, child) =>
-                               TextField(
-                                 maxLines: null,
-                                 controller: provider.messagecontroller,
-                                keyboardType: TextInputType.text,
-                              textAlignVertical: TextAlignVertical.top,
-                              textDirection: value,
-                                onChanged: (input){
-                                  if (input.trim().length < 2) {
-                                    final dir = getDirection(input);
-                                    if (dir != value) _textDir.value = dir;
-                                  }
-                                  },
-                                style: TextStyle(
-                                  fontSize: 15.sp
-                                ),
-
-                                decoration: InputDecoration(
-                                  hintText: "Aa",
-                                  hintStyle:TextStyle(
-                                    fontFamily: 'Montserrat-Regular',
-                                    fontSize: 15,
-                                    color: Colors.black26,
-                                  ) ,
-                                  fillColor: Colors.white,
-
-                                  filled: false,
-
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: MainColor,
-                                      width: 1
-                                    )
-                                  ),
-                                  focusedBorder:OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide(
-                                          color: MainColor,
-                                          width: 1
-                                      )
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide(
-                                          color: Colors.black26,
-                                          width: 1
-                                      )
-                                  )
-
-                                ),
-
+                              text:widget.otherUser.userName+"\n",
+                              style: TextStyle(
+                                fontFamily: 'Montserrat-Medium',
+                                fontSize: 16.sp,
+                                color: const Color(0xcc161f3d),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 5,),
-                          InkWell(
-                            onTap:(){
-                              provider.sendMessage(widget.otherUser.id!);
-                              _scrollDown();
-                            },
-                            child: Icon(
-                              Icons.send,color: MainColor,size: 35.sp,),
-                          )
-                        ],
+                            TextSpan(
+                              text:"User",
+                              style: TextStyle(
+                                fontFamily: 'Montserrat-Regular',
+                                fontSize: 12.sp,
+                                color: const Color(0xcc161f3d),
+                              )
+                            )
+                          ]
+                        )
                       ),
-                    )
+                      const Spacer(),
+                      // InkWell(
+                      //   onTap: (){
+                      //     provider.deletMessage(widget.otherUser.id??"");
+                      //   },
+                      //     child: Icon(Icons.more_vert,color: MainColor,size: 25.sp,))
 
+                      Container(
+                          child: PopupMenuButton<OneItem>(
+                            padding:const EdgeInsets.all(1),
+                            icon: Icon(Icons.more_vert,color: MainColor,),
+                            onSelected: (item) => onSelected(context,item),
+                            itemBuilder: (contxt){
+                              return [
+                                ...MenuItems.firstItems.map(buildItem).toList(),
+                                // PopupMenuDivider(),
+                                // ...MenuItems.SecundItems.map(buildItem).toList()
 
-                  ],
+                              ];
+                            },
+
+                          )
+                      )
+
+                    ],
+                  ),
+
                 ),
+                Expanded(
+                    child:StreamBuilder<List<ChatMessage>>(
+                      stream: ChatHelper.chatHelper.getAllMessage(widget.otherUser.id!),
+                      builder: (contxt,snapshot) {
+                        List<ChatMessage>? list = snapshot.data?.reversed.toList();
+                        return ListView.builder(
+                          reverse: true,
+                          controller: scrollController,
+                            itemCount: list?.length??0,
+                            itemBuilder: (context, index) {
+                          return list![index].isFromMe
+                              ?ChatBubble(
+                            clipper:   ChatBubbleClipper5(type: BubbleType.sendBubble),
+                            alignment: Alignment.topRight,
+                            margin: EdgeInsets.only(right: 6,bottom: 5,top: 1),
+                            backGroundColor: MainColor,
+                            child: InkWell(
+                              onDoubleTap: (){
+                                showDialog(context: context, builder: (context){
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16)
+                                    ),
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: MainColor,
+                                          shape: BoxShape.rectangle,
+                                          borderRadius: BorderRadius.all(Radius.circular(12))
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(18),
+                                        child: Text(provider.blockCipher.decodeB64(list[index].content!), style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                                      ),
+                                    ),
+                                  );
+                                });
+                                // provider.deletMessage(widget.otherUser.id!,list[index].id!);
+                                print("iug");
+                              },
+                              child:(list[index].content == null)
+                                  ? Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                                ),
+                                child: Image.network(list[index].imageurl!)
+                              )
+                                  :Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                                ),
+                                child: Text(
+                                  list[index].content??"",
+                                  // provider.blockCipher.decodeB64(list[index].content!)??"",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          )
+                              :ChatBubble(
+                            clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                            alignment: Alignment.topLeft,
+                            margin: EdgeInsets.only(left: 6,bottom: 5,top: 1),
+                            backGroundColor: Colors.grey.shade100,
+                            child: InkWell(
+                              onDoubleTap: (){
+                                showDialog(context: context, builder: (context){
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16)
+                                    ),
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: MainColor,
+                                          shape: BoxShape.rectangle,
+                                          borderRadius: BorderRadius.all(Radius.circular(12))
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(18),
+                                        child: Text(provider.blockCipher.decodeB64(list[index].content!), style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                                      ),
+                                    ),
+                                  );
+                                });
+                              },
+                              child: (list[index].content == null)
+                                  ? Container(
+                                  constraints: BoxConstraints(
+                                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                                  ),
+                                  child: Image.network(list[index].imageurl!)
+                              )
+                                  :Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                                ),
+                                child: Text(
+                                  list[index].content??"",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          );
+
+                        });
+                      },
+                    )
+                ),
+                // const SizedBox(height: 5,),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                  // height: 70.h ,
+                  color:  Colors.white,
+                  child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // InkWell(
+                      //   onTap: ()async{
+                      //    await provider.selecteImageFun();
+                      //     await provider.uploadImage();
+                      //    await  provider.sendImage(widget.otherUser.id!);
+                      //   },
+                      //
+                      //     child: Icon(Icons.add,color: MainColor ,size: 32,)),
+                      SizedBox(width: 5,),
+                      Expanded(
+
+                        child: ValueListenableBuilder<TextDirection>(
+                          valueListenable: _textDir,
+                          builder: (context, value, child) =>
+                           TextField(
+                             maxLines: null,
+                             controller: provider.messagecontroller,
+                            keyboardType: TextInputType.text,
+                          textAlignVertical: TextAlignVertical.top,
+                          textDirection: value,
+                            onChanged: (input){
+                              if (input.trim().length < 2) {
+                                final dir = getDirection(input);
+                                if (dir != value) _textDir.value = dir;
+                              }
+                              },
+                            style: TextStyle(
+                              fontSize: 15.sp
+                            ),
+
+                            decoration: InputDecoration(
+                              hintText: "Aa",
+                              hintStyle:TextStyle(
+                                fontFamily: 'Montserrat-Regular',
+                                fontSize: 15,
+                                color: Colors.black26,
+                              ) ,
+                              fillColor: Colors.white,
+
+                              filled: false,
+
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: MainColor,
+                                  width: 1
+                                )
+                              ),
+                              focusedBorder:OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide(
+                                      color: MainColor,
+                                      width: 1
+                                  )
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide(
+                                      color: Colors.black26,
+                                      width: 1
+                                  )
+                              )
+
+                            ),
+
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 5,),
+                      InkWell(
+                        onTap:(){
+                          provider.sendMessage(widget.otherUser.id!);
+                          _scrollDown();
+                        },
+                        child: Icon(
+                          Icons.send,color: MainColor,size: 35.sp,),
+                      )
+                    ],
+                  ),
+                )
+
+
               ],
             ),
           ),
